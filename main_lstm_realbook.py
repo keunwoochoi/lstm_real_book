@@ -18,15 +18,24 @@ from keras.datasets.data_utils import get_file
 import numpy as np
 import random
 import sys
+import pdb
 
+character_mode = False
 path = 'chord_sentences.txt'
 text = open(path).read()
 print('corpus length:', len(text))
 
-chars = set(text)
-print('total chars:', len(chars))
+if character_mode:
+	chars = set(text)
+else:
+	chord_seq = text.split(' ')
+	chars = set(chord_seq)
+	text = chord_seq
+
 char_indices = dict((c, i) for i, c in enumerate(chars))
 indices_char = dict((i, c) for i, c in enumerate(chars))
+num_chars = len(char_indices)
+print('total chars:', num_chars)
 
 # cut the text in semi-redundant sequences of maxlen characters
 maxlen = 20
@@ -39,8 +48,8 @@ for i in range(0, len(text) - maxlen, step):
 print('nb sequences:', len(sentences))
 
 print('Vectorization...')
-X = np.zeros((len(sentences), maxlen, len(chars)), dtype=np.bool)
-y = np.zeros((len(sentences), len(chars)), dtype=np.bool)
+X = np.zeros((len(sentences), maxlen, num_chars), dtype=np.bool)
+y = np.zeros((len(sentences), num_chars), dtype=np.bool)
 for i, sentence in enumerate(sentences):
 	for t, char in enumerate(sentence):
 		X[i, t, char_indices[char]] = 1
@@ -50,13 +59,13 @@ for i, sentence in enumerate(sentences):
 # build the model: 2 stacked LSTM
 print('Build model...')
 model = Sequential()
-model.add(LSTM(512, return_sequences=True, input_shape=(maxlen, len(chars))))
+model.add(LSTM(512, return_sequences=True, input_shape=(maxlen, num_chars)))
 model.add(Dropout(0.2))
 model.add(LSTM(512, return_sequences=True))
 model.add(Dropout(0.2))
 model.add(LSTM(512, return_sequences=False))
 model.add(Dropout(0.2))
-model.add(Dense(len(chars)))
+model.add(Dense(num_chars))
 model.add(Activation('softmax'))
 
 model.compile(loss='categorical_crossentropy', optimizer='adam')
@@ -84,31 +93,63 @@ for iteration in range(1, 60):
 			print()
 			print('----- diversity:', diversity)
 			f_write.write('diversity:%4.2f\n' % diversity)
-			generated = ''
+			if character_mode:
+				generated = ''
+			else:
+				generated = []
 			sentence = text[start_index: start_index + maxlen]
 			seed_sentence = text[start_index: start_index + maxlen]
 			# sentence = ' _END_ _START_ C:'
-			generated += sentence
-			print('----- Generating with seed: "' + sentence + '"')
-			sys.stdout.write(generated)
+			if character_mode:
+				generated += sentence
+			else:
+				generated = generated + sentence
+				
+			
+			print('----- Generating with seed:')
+			
+			if character_mode:
+				print(sentence)
+				sys.stdout.write(generated)
+			else:
+				print(' '.join(sentence))
 
-			for i in range(1500):
+			if character_mode:
+				num_char_pred = 1500
+			else:
+				num_char_pred = 150
+			for i in xrange(num_char_pred):
 				# if generated.endswith('_END_'):
 				# 	break
-				x = np.zeros((1, maxlen, len(chars)))
+				x = np.zeros((1, maxlen, num_chars))
+				
 				for t, char in enumerate(sentence):
 					x[0, t, char_indices[char]] = 1.
 
 				preds = model.predict(x, verbose=0)[0]
 				next_index = sample(preds, diversity)
 				next_char = indices_char[next_index]
+				
+				if character_mode:
+					generated += next_char
+					sentence = sentence[1:] + next_char
+				else:
+					generated.append(next_char)
+					sentence = sentence[1:]
+					sentence.append(next_char)
 
-				generated += next_char
-				sentence = sentence[1:] + next_char
+				if character_mode:
+					sys.stdout.write(next_char)
+				# else:
+				# 	for ch in next_char:
+				# 		sys.stdout.write(ch)	
 
-				sys.stdout.write(next_char)
 				sys.stdout.flush()
 			print()
-			f_write.write(seed_sentence + '\n')
-			f_write.write(generated)
+			if character_mode:
+				f_write.write(seed_sentence + '\n')
+				f_write.write(generated)
+			else:
+				f_write.write(' '.join(seed_sentence) + '\n')
+				f_write.write(' ' .join(generated))
 			f_write.write('\n\n')
