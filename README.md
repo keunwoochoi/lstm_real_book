@@ -7,5 +7,6 @@ A Keras-based source code that uses LSTM to generate jazz chords progression.
 Set `character-mode` as `True` or `False` to choose between char-rnn and word-rnn.
 
 ### and,
-More info on [my blog post](https://keunwoochoi.wordpress.com/2016/02/19/lstm-realbook/)
+ * More info on [my blog post](https://keunwoochoi.wordpress.com/2016/02/19/lstm-realbook/)
+ * A similar project on Drums: [LSTMetallica repo](https://github.com/keunwoochoi/LSTMetallica), [blog post](https://keunwoochoi.wordpress.com/2016/02/23/lstmetallica/).
 
