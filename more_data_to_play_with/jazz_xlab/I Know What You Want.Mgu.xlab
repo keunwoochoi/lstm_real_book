@@ -1,0 +1,21 @@
+
+1:1 0.0 2 1.0 G:min Gm Gm
+1:3 1.0 2 2.0 Bb:maj Bb Gm
+2:1 2.0 2 3.0 F:maj F Gm
+2:3 3.0 2 4.0 G:min Gm Gm
+3:1 4.0 4 6.0 G:min Gm Gm
+4:1 6.0 4 8.0 Bb:maj Bb Gm
+5:1 8.0 4 10.0 F:maj F Gm
+6:1 10.0 4 12.0 G:min Gm Gm
+7:1 12.0 4 14.0 G:min Gm Gm
+8:1 14.0 4 16.0 Bb:maj Bb Gm
+9:1 16.0 4 18.0 F:maj F Gm
+10:1 18.0 4 20.0 G:min Gm Gm
+11:1 20.0 4 22.0 Bb:maj Bb Gm
+12:1 22.0 4 24.0 F:maj F Gm
+13:1 24.0 4 26.0 G:min Gm Gm
+14:1 26.0 4 28.0 A:7 A7 Gm
+15:1 28.0 4 30.0 G:min Gm Gm
+16:1 30.0 4 32.0 Bb:maj Bb Gm
+17:1 32.0 4 34.0 D:7 D7 Gm
+18:1 34.0 4 36.0 G:min Gm Gm

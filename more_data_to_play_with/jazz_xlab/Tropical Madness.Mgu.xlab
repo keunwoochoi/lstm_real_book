@@ -1,0 +1,26 @@
+
+1:1 0.0 1 0.5 F:maj F Bb
+1:2 0.5 3 2.0 F:dim Fdim Bb
+2:1 2.0 4 4.0 F:7 F7 Bb
+3:1 4.0 1 4.5 F:maj F Bb
+3:2 4.5 3 6.0 F:dim Fdim Bb
+4:1 6.0 4 8.0 F:7 F7 Bb
+5:1 8.0 1 8.5 F:maj F Bb
+5:2 8.5 3 10.0 F:dim Fdim Bb
+6:1 10.0 4 12.0 C:min Cm Bb
+7:1 12.0 1 12.5 F:maj F Bb
+7:2 12.5 7 16.0 F:dim Fdim Bb
+9:1 16.0 24 28.0 F:7 F7 Bb
+15:1 28.0 4 30.0 F:dim Fdim Bb
+16:1 30.0 4 32.0 F:7 F7 Bb
+17:1 32.0 1 32.5 F:maj F Bb
+17:2 32.5 3 34.0 F:dim Fdim Bb
+18:1 34.0 4 36.0 F:maj6 F6 Bb
+19:1 36.0 4 38.0 F:9 F9 Bb
+20:1 38.0 4 40.0 F:7 F7 Bb
+21:1 40.0 4 42.0 Bb:maj Bb Bb
+22:1 42.0 1 42.5 Bb:min Bbm Bb
+22:2 42.5 3 44.0 F:7 F7 Bb
+23:1 44.0 1 44.5 Bb:min Bbm Bb
+23:2 44.5 3 46.0 F:7 F7 Bb
+24:1 46.0 12 52.0 Bb:min Bbm Bb
