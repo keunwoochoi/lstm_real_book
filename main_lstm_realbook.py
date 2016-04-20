@@ -1,27 +1,26 @@
-'''Example script to generate text from Nietzsche's writings.
-
-At least 20 epochs are required before the generated text
-starts sounding coherent.
-
-It is recommended to run this script on GPU, as recurrent
-networks are quite computationally intensive.
-
-If you try this script on new data, make sure your corpus
-has at least ~100k characters. ~1M is better.
 '''
-
-from __future__ import print_function
+LSTM realbook by Keunwoo Choi. 
+Details on 
+- repo:  https://github.com/keunwoochoi/lstm_real_book
+- paper: https://arxiv.org/abs/1604.05358#
+'''
 from keras.models import Sequential
 from keras.layers.core import Dense, Activation, Dropout
 from keras.layers.recurrent import LSTM
-from keras.datasets.data_utils import get_file
+from keras.utils.data_utils import get_file
 import numpy as np
 import random
 import sys
-import pdb
 
-character_mode = False
-path = 'chord_sentences.txt'
+
+def sample(a, temperature=1.0):
+	# helper function to sample an index from a probability array
+	a = np.log(a) / temperature
+	a = np.exp(a) / np.sum(np.exp(a))
+	return np.argmax(np.random.multinomial(1, a, 1))
+
+character_mode = False # INSTRUCTION: set this value to False or True
+path = 'chord_sentences.txt' # the txt data source
 text = open(path).read()
 print('corpus length:', len(text))
 
@@ -47,6 +46,7 @@ for i in range(0, len(text) - maxlen, step):
 	next_chars.append(text[i + maxlen])
 print('nb sequences:', len(sentences))
 
+# text to vectors
 print('Vectorization...')
 X = np.zeros((len(sentences), maxlen, num_chars), dtype=np.bool)
 y = np.zeros((len(sentences), num_chars), dtype=np.bool)
@@ -55,13 +55,10 @@ for i, sentence in enumerate(sentences):
 		X[i, t, char_indices[char]] = 1
 	y[i, char_indices[next_chars[i]]] = 1
 
-
-# build the model: 2 stacked LSTM
+# build the model: stacked LSTM
 print('Build model...')
 model = Sequential()
 model.add(LSTM(512, return_sequences=True, input_shape=(maxlen, num_chars)))
-model.add(Dropout(0.2))
-model.add(LSTM(512, return_sequences=True))
 model.add(Dropout(0.2))
 model.add(LSTM(512, return_sequences=False))
 model.add(Dropout(0.2))
@@ -69,13 +66,6 @@ model.add(Dense(num_chars))
 model.add(Activation('softmax'))
 
 model.compile(loss='categorical_crossentropy', optimizer='adam')
-
-
-def sample(a, temperature=1.0):
-	# helper function to sample an index from a probability array
-	a = np.log(a) / temperature
-	a = np.exp(a) / np.sum(np.exp(a))
-	return np.argmax(np.random.multinomial(1, a, 1))
 
 # train the model, output generated text after each iteration
 for iteration in range(1, 60):
@@ -85,7 +75,6 @@ for iteration in range(1, 60):
 	with open(('result_iter_%02d.txt' % iteration), 'w') as f_write:
 
 		model.fit(X, y, batch_size=512, nb_epoch=1)
-
 		start_index = random.randint(0, len(text) - maxlen - 1)
 		# not random seed
 
