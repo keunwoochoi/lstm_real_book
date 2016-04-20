@@ -12,7 +12,6 @@ import numpy as np
 import random
 import sys
 
-
 def sample(a, temperature=1.0):
 	# helper function to sample an index from a probability array
 	a = np.log(a) / temperature
@@ -78,7 +77,7 @@ for iteration in range(1, 60):
 		start_index = random.randint(0, len(text) - maxlen - 1)
 		# not random seed
 
-		for diversity in [0.5, 1.0, 1.2]:
+		for diversity in [0.8, 1.0, 1.2]:
 			print()
 			print('----- diversity:', diversity)
 			f_write.write('diversity:%4.2f\n' % diversity)
@@ -88,15 +87,13 @@ for iteration in range(1, 60):
 				generated = []
 			sentence = text[start_index: start_index + maxlen]
 			seed_sentence = text[start_index: start_index + maxlen]
-			# sentence = ' _END_ _START_ C:'
+			
 			if character_mode:
 				generated += sentence
 			else:
 				generated = generated + sentence
-				
 			
 			print('----- Generating with seed:')
-			
 			if character_mode:
 				print(sentence)
 				sys.stdout.write(generated)
