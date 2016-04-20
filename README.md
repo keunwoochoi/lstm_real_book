@@ -4,7 +4,7 @@ A Keras-based source code that uses LSTM to generate jazz chords progression.
 
 ### Usage
 1. Clone the repo
-2. Set `character-mode` as `True` or `False` to choose between char-rnn and word-rnn.
+2. Set `character-mode` in `main_lstm_realbook.py` as `True` or `False` to choose between char-rnn and word-rnn.
 3. Run by `$ python main_lstm_realbook.py`
 4. Use [chord_sentences.txt](https://github.com/keunwoochoi/lstm_real_book/blob/master/chord_sentences.txt) to whatever you want
 5. Use [2486 .lab files](https://github.com/keunwoochoi/lstm_real_book/blob/master/more_data_to_play_with/jazz_xlab.zip) to do even more interesting!
