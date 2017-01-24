@@ -15,4 +15,4 @@ A Keras-based source code that uses LSTM to generate jazz chords progression.
  * A similar project on Drums: [LSTMetallica repo](https://github.com/keunwoochoi/LSTMetallica), [blog post](https://keunwoochoi.wordpress.com/2016/02/23/lstmetallica/), [soundcloud](https://soundcloud.com/kchoi-research/sets/lstmetallica-drums)
 
 ### Citation
-**Text-based LSTM networks for Automatic Music Composition**, Keunwoo Choi, George Fazekas, Mark Sandler, *1st Conference on Computer Simulation of Musical Creativity*, Huddersfield, UK, 2016 [arXiv](https://arxiv.org/abs/1604.05358#), [pdf](https://arxiv.org/pdf/1604.05358v1)
+**Text-based LSTM networks for Automatic Music Composition**, Keunwoo Choi, George Fazekas, Mark Sandler, *1st Conference on Computer Simulation of Musical Creativity*, Huddersfield, UK, 2016 [arXiv](https://arxiv.org/abs/1604.05358#), [pdf](https://arxiv.org/pdf/1604.05358v1), [bib](https://scholar.googleusercontent.com/citations?view_op=export_citations&user=ZrqdSu4AAAAJ&s=ZrqdSu4AAAAJ:MXK_kJrjxJIC&citsig=AMstHGQAAAAAWIjj06BhKkBaBGcqMR__UBSLuabfKgOR&hl=en&cit_fmt=0)
